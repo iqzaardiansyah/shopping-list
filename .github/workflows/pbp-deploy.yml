@@ -17,7 +17,7 @@ jobs:
         fetch-depth: 0
 
     - name: Push to Dokku server
-      uses: dokku/github-action@master
+      uses: dokku/github-action@main
       with:
         branch: 'main'
         git_remote_url: ssh://dokku@${{ secrets.DOKKU_SERVER_IP }}/${{ secrets.DOKKU_APP_NAME }}
