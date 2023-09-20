@@ -8,14 +8,16 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import messages  
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+import datetime
 
 @login_required(login_url='/login')
 def show_main(request):
-    products = Product.objects.all()
+    products = Product.objects.filter(user=request.user)
     context = {
-        'name': 'Iqza Ardiansyah',
+        'name': request.user.username,
         'class': 'PBP F',
-        'products': products
+        'products': products,
+        'last_login': request.COOKIES['last_login'],
     }
 
     return render(request, "main.html", context)
@@ -24,7 +26,9 @@ def create_product(request):
     form = ProductForm(request.POST or None)
 
     if form.is_valid() and request.method == "POST":
-        form.save()
+        product = form.save(commit=False)
+        product.user = request.user
+        product.save()
         return HttpResponseRedirect(reverse('main:show_main'))
 
     context = {'form': form}
@@ -65,7 +69,9 @@ def login_user(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('main:show_main')
+            response = HttpResponseRedirect(reverse("main:show_main")) 
+            response.set_cookie('last_login', str(datetime.datetime.now()))
+            return response
         else:
             messages.info(request, 'Sorry, incorrect username or password. Please try again.')
     context = {}
@@ -73,4 +79,6 @@ def login_user(request):
 
 def logout_user(request):
     logout(request)
-    return redirect('main:login')
+    response = HttpResponseRedirect(reverse('main:login'))
+    response.delete_cookie('last_login')
+    return response
