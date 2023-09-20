@@ -15,6 +15,7 @@
             <th>Price</th>
             <th>Description</th>
             <th>Date Added</th>
+            <th>User</th>
         </tr>
     
         {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
@@ -25,6 +26,7 @@
                 <td>{{product.price}}</td>
                 <td>{{product.description}}</td>
                 <td>{{product.date_added}}</td>
+                <td>{{product.user}}</td>
             </tr>
         {% endfor %}
     </table>
