@@ -11,7 +11,7 @@
         {% endblock meta %}
     </head>
 
-    <body style="background-color: grey;">
+    <body>
         <style>
             table, th, td {
             padding-left: 10px;
@@ -19,9 +19,8 @@
             border: 1px solid white;
             border-collapse: collapse;
             }
-            th, td {
-                background-color: grey;
-            }
+
+            body {background-image: linear-gradient(to right, black, grey, white); font-family: 'Courier New', Courier, monospace;}
         </style>
         {% block content %}
         {% endblock content %}
