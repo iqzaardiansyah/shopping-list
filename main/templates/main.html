@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
 
-{% block content %}
-    <h5>Name: {{name}}</h5>
+<nav>
+    {% block logout %}
+    <a class="navbar-brand" href="{% url 'main:logout' %}">
+        <button>
+            Logout
+        </button>
+    </a>
+    
+    {% endblock logout %}
+</nav>
 
-    <h5>Class: {{class}}</h5>
+{% block content %}
+    <h1>ShoppingList Page</h1>
 
     <h5>Log-in user: {{user}}</h5>
+
+    <h5>Class: {{class}}</h5>
 
     <table>
         <tr>
@@ -14,6 +25,7 @@
             <th>Description</th>
             <th>Date Added</th>
             <th>User</th>
+            <th>Action</th>
         </tr>
     
         {% comment %} Berikut cara memperlihatkan data produk di bawah baris ini {% endcomment %}
@@ -35,25 +47,12 @@
                           <button>
                               Delete
                           </button>
-                      </a>
+                    </a>
                 </td>
             </tr>
         {% endfor %}
     </table>
     
     <br />
-    
-    <a href="{% url 'main:create_product' %}">
-        <button>
-            Add New Product
-        </button>
-    </a>
-
-    <a href="{% url 'main:logout' %}">
-        <button>
-            Logout
-        </button>
-    </a>    
-
     <h5>Sesi terakhir login: {{ last_login }}</h5>
 {% endblock content %}

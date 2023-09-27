@@ -3,8 +3,10 @@
 <nav class="navbar bg-body-tertiary" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="{% url 'main:backtomain' %}">
-        Shopping-List
+        Iqza Ardiansyah
       </a>
+      {% block logout %}
+      {% endblock logout %}
     </div>
 </nav>
 
@@ -31,6 +33,7 @@
             padding-right: 10px;
             border: 1px solid white;
             border-collapse: collapse;
+            text-align: center;
             }
 
             body {background-image: linear-gradient(to right, black, grey, white); font-family: 'Courier New', Courier, monospace;}
